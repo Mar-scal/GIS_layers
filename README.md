@@ -32,7 +32,8 @@ The workflow is as follows
 7: Test your changes to ensure there are no bugs within your FORK
 
 8: You can now submit a PULL REQUEST from your FORK to the Mar-scal MASTER
+  - For now DK/FK will review the PULL REQUEST to ensure it does not cause any issues. 
+  - DK/FK will also identify any ISSUES that need to be opened and/or closed, and integrated with pull requests too.
+  - If you are aware of ISSUES being resolved/opened feel free to integrate these into the PULL REQUEST yourself
 
-For now DK/FK will review the PULL REQUEST to ensure it does not cause any issues. -DK/FK will also identify any ISSUES that need to be opened and/or closed, and integrated with pull requests too.
-If you are aware of ISSUES being resolved/opened feel free to integrate these into the PULL REQUEST yourself
 Collaborators CAN merge their pull requests independently, but complicated edits MUST be discussed before being merged with the master on Mar-scal as these are now immediately implemented on our shared network.
