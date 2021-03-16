@@ -2,7 +2,10 @@
 
 #These outputs of this function are saved here: Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables
 
-#This function does not need to be run again (unless something is wrong with the layers that are already written). It is mainly for making Brittany's life easier by converting the BNAM model runs for each variable, year and month from .mat files in the directory Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/ to .asc rasters and saves them to Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables.
+#This function does not need to be run again (unless something is wrong with the layers that are already written). 
+#It is mainly for making Brittany's life easier by converting the BNAM model runs for each variable, year and month 
+#from .mat files in the directory Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/ to .asc rasters 
+#and saves them to Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables.
 
 #It takes approx. 45 mins for 12 layers
 
