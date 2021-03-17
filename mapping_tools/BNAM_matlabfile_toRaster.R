@@ -7,7 +7,7 @@
 #from .mat files in the directory Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/ to .asc rasters 
 #and saves them to Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables.
 
-#It takes approx. 45 mins for 12 layers
+#It takes approx. 45 mins for 12 layers, and 6 hours for writing an entire year.
 
 #Arguments:
 
@@ -199,6 +199,7 @@ mat2raster = function(var = "BS", year = "1990")
     dat <- list() #Create dataframes with lat lons
     for(i in 1:length(matList1)){
       dat[[i]] <- data.frame(X=c(coord$Lons), Y=c(coord$Lats), SS = c(matList1[[i]]$SS), EID = 1:length(matList1[[i]]$SS))
+      dat[[i]][dat[[i]]==0] <- NA #Remove land (values of 0)
       dat[[i]] <- na.omit(dat[[i]])
     }
     
@@ -221,6 +222,7 @@ mat2raster = function(var = "BS", year = "1990")
     dat <- list() #Create dataframes with lat lons
     for(i in 1:length(matList1)){
       dat[[i]] <- data.frame(X=c(coord$Lons), Y=c(coord$Lats), ST = c(matList1[[i]]$ST), EID = 1:length(matList1[[i]]$ST))
+      dat[[i]][dat[[i]]==0] <- NA #Remove land (values of 0)
       dat[[i]] <- na.omit(dat[[i]])
     }
     
