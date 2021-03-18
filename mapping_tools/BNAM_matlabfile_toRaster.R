@@ -1,6 +1,6 @@
 # Function Specific to BNAM data in skyscallop directory -----------------------------------------------------
 
-#These outputs of this function are saved here: Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables
+#The outputs of this function are saved here: Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables
 
 #This function does not need to be run again (unless something is wrong with the layers that are already written). 
 #It is mainly for making Brittany's life easier by converting the BNAM model runs for each variable, year and month 
