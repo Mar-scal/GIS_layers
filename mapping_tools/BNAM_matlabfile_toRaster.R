@@ -165,7 +165,7 @@ mat2raster = function(var = "BS", year = "1990")
   
   if(var == "MLD")
   {
-    matList<- readMat("MLD.mat")
+    matList<- readMat(paste0(file.dir,"/MLD.mat"))
     matList1 <- list()
     for(i in 1:12){
       matList1[[i]] <- cbind(matList[[1]][i,,])
