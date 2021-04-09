@@ -237,17 +237,9 @@ mat2raster = function(var = "BS", year = "1990")
     }
   }
   
-  # Stack the rasters and interpolate gaps (Eastcoast of Greenland) and mask to land. 
+  # Stack the rasters. 
   rasstack <- stack(rasters)
-  
-  rasstack.interp <- list()
-  for(i in 1:length(dat.sf)){
-    rasstack.interp[[i]] <- focal(rasstack[[i]], matrix(1, nrow = 3, ncol = 3), fun = mean, na.rm = TRUE, NAonly = T) # only fills in NA value
-    rasstack.interp[[i]] <- mask(rasstack.interp[[i]], mask = land.mask, inverse = TRUE) #Mask using land to crop interpolation along edges
-  }
-  
-  # Stack the new rasters
-  rasstack.interp <- stack(rasstack.interp)
+
   
   #Save rasters
   dir.create(paste0("Z:/Projects/BEcoME/BNAM/BNAM_Rasters/1990-2019_monthly_BNAM_variables/",year), showWarnings = FALSE) #create year folder if it doesn't exist
@@ -264,41 +256,41 @@ mat2raster = function(var = "BS", year = "1990")
   
   if(var == "BS")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("BtmSalinity_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("BtmSalinity_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "BT")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("BtmTemp_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("BtmTemp_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "BU")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("BtmUCurrent_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("BtmUCurrent_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "BV")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("BtmVCurrent_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("BtmVCurrent_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "Bstress")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("BtmStress_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("BtmStress_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "MLD")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("MLD_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("MLD_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "SS")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("SurfaceSalinity_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("SurfaceSalinity_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
   
   if(var == "ST")
   {
-    writeRaster(rasstack.interp, ".", filename= paste0("SurfaceTemp_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
+    writeRaster(rasstack, ".", filename= paste0("SurfaceTemp_", names, "_", year, ".asc"), bylayer = TRUE, format = 'ascii', prj = T, overwrite = T)
   }
 }
