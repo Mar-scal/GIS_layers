@@ -47,7 +47,7 @@ mat2raster = function(var = "BS", year = "1990")
   
   #Build raster template with desired resolution in the units of the projected data (in this case, degrees)
   proj <- CRS("+proj=longlat +datum=WGS84 +no_defs")
-  r <- raster(extent(land.mask), resolution = 0.1, crs= proj)
+  r <- raster(extent(land.mask), resolution = 0.14, crs= proj)
   
   
   if(var == "BS")

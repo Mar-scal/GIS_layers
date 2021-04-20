@@ -29,7 +29,7 @@ crs(data.sf) #check projection
 
 #Build raster template with desired resolution in the units of the projected data (in this case, degrees)
 proj <- CRS("+proj=longlat +datum=WGS84 +no_defs")
-r <- raster(extent(land.mask), resolution = 0.1, crs= proj)
+r <- raster(extent(land.mask), resolution = 0.14, crs= proj)
 
 raster <- rasterize(data.sf, r, "Vbtm.ann", mean) #**change name**
 #test <- projectRaster(raster, crs = CRS("+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs "))
@@ -110,7 +110,7 @@ crs(data.sf) #check projection
 
 #Build raster template with desired resolution in the units of the projected data (in this case, degrees)
 proj <- CRS("+proj=longlat +datum=WGS84 +no_defs")
-r <- raster(extent(land.mask), resolution = 0.1, crs= proj)
+r <- raster(extent(land.mask), resolution = 0.14, crs= proj)
 names <- colnames(var[-1]) #setting up names for each layer
 
 x <- list()
