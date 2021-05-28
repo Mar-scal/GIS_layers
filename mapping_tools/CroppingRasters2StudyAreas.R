@@ -75,7 +75,7 @@ crop_fn <- function(y) {
 
 #e.g. raster stack
 
-rastList_crop <- lapply(Raststack, crop_fn)
+rastList_crop <- lapply(Raststack, crop_fn) #OR replace stack for Raster list (rasters won't stack if extents are different). 
 plot(rastList_crop[[5]]) #check, eg. plots the 5th raster in the stack
 
 rasstack <- stack(rastList_crop)
