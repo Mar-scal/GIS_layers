@@ -1,11 +1,11 @@
 # Function Specific to BNAM data in skyscallop directory -----------------------------------------------------
 
-#The outputs of this function are saved here: Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables
+#The outputs of this function are saved here: Z:\Projects\OceanographicData\BNAM\BNAM_datapackage
 
 #This function does not need to be run again (unless something is wrong with the layers that are already written). 
 #It is mainly for making Brittany's life easier by converting the BNAM model runs for each variable, year and month 
 #from .mat files in the directory Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/ to .asc rasters 
-#and saves them to Z:\Projects\BEcoME\BNAM\BNAM_Rasters\1990-2019_monthlyscale_BNAM_variables.
+#and saves them to Z:\Projects\OceanographicData\BNAM\BNAM_datapackage
 
 #It takes approx. 45 mins for 12 layers, and 6 hours for writing an entire year.
 
@@ -40,10 +40,10 @@ mat2raster = function(var = "BS", year = "1990")
   require(lubridate) || stop("Install lubridate")
   require(tidyverse)|| stop("Install tidyverse")
   
-  file.dir <- paste0("Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/",year)
+  file.dir <- paste0("Z:/Projects/OceanographicData/BNAM/Data_frm_Brickman_Wang/1990-2019_Monthly/",year)
   #setwd(file.dir)
-  coord <- readMat("Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/latlon.mat")
-  land.mask <- raster("Z:/Projects/BEcoME/BNAM/Data_frm_DaveBrickman/1990-2019_Monthly/BNAM_landmask.asc")
+  coord <- readMat("Z:/Projects/OceanographicData/BNAM/Data_frm_Brickman_Wang/1990-2019_Monthly/latlon.mat")
+  land.mask <- raster("Z:/Projects/OceanographicData/BNAM/Data_frm_Brickman_Wang/1990-2019_Monthly/BNAM_landmask.asc")
   
   #Build raster template with desired resolution in the units of the projected data (in this case, degrees)
   proj <- CRS("+proj=longlat +datum=WGS84 +no_defs")
@@ -242,14 +242,14 @@ mat2raster = function(var = "BS", year = "1990")
 
   
   #Save rasters
-  dir.create(paste0("Z:/Projects/BEcoME/BNAM/BNAM_Rasters/1990-2019_monthly_BNAM_variables/",year), showWarnings = FALSE) #create year folder if it doesn't exist
-  setwd(paste0("Z:/Projects/BEcoME/BNAM/BNAM_Rasters/1990-2019_monthly_BNAM_variables/",year))
+  dir.create(paste0("Z:/Projects/OceanographicData/BNAM/Grids/BNAM_1990-2019_monthly/",year), showWarnings = FALSE) #create year folder if it doesn't exist
+  setwd(paste0("Z:/Projects/OceanographicData/BNAM/Grids/BNAM_1990-2019_monthly/",year))
   
   if(var == "MLD"){
     names <- month.abb[c(1:12)] #The MLD.mat is formatted differently and needs to be named this way.
   } else {
     
-    names <- substr(matList, 70, nchar(matList)-4) #extract number of characters from file name up to layer name and month numeric value, and removes .mat
+    names <- substr(matList, 85, nchar(matList)-4) #extract number of characters from file name up to layer name and month numeric value, and removes .mat
     names <- month.abb[parse_number(names)] # convert to month abbreviation for raster file naming
   }
   
