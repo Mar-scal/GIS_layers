@@ -38,9 +38,11 @@ crs(bathy)
 
 # Read in layer(s) to crop ------------------------------------------------
 RastList <- list.files("Z:/Projects/OceanographicData/BNAM/Grids/BNAM_1990-2019_monthly/1990", pattern =".asc$",full.names = TRUE) #Change path
+rasterList1 <- lapply(RastList, raster)
 
-# Raster List into a RasterStack:
-Raststack <- raster::stack(RastList)
+# Raster List into a RasterStack: Note - won't stack if layers are different extents/resolutions
+Raststack <- raster::stack(rasterList1) #RastList
+
 
 #or Read in a single layer:
 Raster <- raster("Z:/Projects/OceanographicData/BNAM/Grids/BNAM_1990-2019_monthly/1990/BtmSalinity_Apr_1990.asc")
