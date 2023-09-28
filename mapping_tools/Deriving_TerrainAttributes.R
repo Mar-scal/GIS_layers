@@ -129,7 +129,7 @@ adj_SD<- as(adj_SD, "Raster")
 # Relative Position -------------------------------------------------------
 
 #TPI
-tpi<- TPI(bathy, w=c(5,5), na.rm = TRUE)
+tpi<- TPI(bathy, w=c(11,11), na.rm = TRUE)
 plot(tpi)
 
 #RDMV
@@ -143,37 +143,55 @@ rdmv<- as(rdmv, "Raster")
 #BPI
 #annulus_window(radius = c(5,10), unit = "cell")
 
-#broad BPI
-bbpi<- BPI(bathy, radius = c(5,100), unit = "cell", na.rm = TRUE)
-plot(bbpi)
+#broad BPI (standardized (relative position is standardized by dividing by the standard deviation))
+sbbpi<- BPI(bathy, w = annulus_window(radius = c(5,100), unit = "cell"), stand="sd", na.rm = TRUE)
+plot(sbbpi)
 #bpi<- as(bpi, "Raster")#convert to RasterLayer to view in mapview
 #mapview(bpi)
 
-bbpi2<- BPI(bathy, radius = c(50,500), unit = "cell", na.rm = TRUE)
+sbbpi2<- BPI(bathy, w = annulus_window(radius = c(50,100), unit = "cell"), stand="sd", na.rm = TRUE)
 plot(bbpi2)
 
-#fine BPI
-fbpi<- BPI(bathy, radius = c(1,10), unit = "cell", na.rm = TRUE)
-plot(fbpi)
+#fine BPI (standardized (relative position is standardized by dividing by the standard deviation))
+sfbpi<- BPI(bathy, w = annulus_window(radius = c(1,10), unit = "cell"), stand="sd", na.rm = TRUE)
+plot(sfbpi)
 
 #Save bpis
-#writeRaster(bbpi, filename= "Z:/GISdata/Private/BoF_GoM_dataset/bbpi_5x100.tif",  filetype = "GTiff")
-#writeRaster(fbpi, filename= "Z:/GISdata/Private/BoF_GoM_dataset/fbpi_1x10.tif",  filetype = "GTiff")
+#writeRaster(sbbpi, filename= "Z:/GISdata/Private/BoF_GoM_dataset/sbbpi_5x100.tif",  filetype = "GTiff")
+#writeRaster(sfbpi, filename= "Z:/GISdata/Private/BoF_GoM_dataset/fbpi_1x10.tif",  filetype = "GTiff")
+#writeRaster(sbbpi2, filename= "Z:/GISdata/Private/BoF_GoM_dataset/sbbpi_25x50.tif",  filetype = "GTiff")
 
-#-----Creating multiple terrain attributes at once-----------------------------------------------------------------
+#-----Creating multiple terrain attributes at once (seperate loops) -----------------------------------------------------------------
 
-TA <- rast() #Initialize Raster for Terrain Attributes
+TA <- rast()
+  for(w in c(3,5,7,11,17,27,43,69)) {
+  Rugosity <- AdjSD(bathy, w)
+  TA <- c(TA, Rugosity)
+  }
 
-for(w in c(3,5,6,11,17,27,43,69)) {
+
+for(w in c(3,5,7,11,17,27,43,69)) {
+  Curv <- Qfit(bathy, w, metrics = c("profc", "planc", "twistc", "meanc", "maxc", "minc"))
+  SlpAsp <- Qfit(bathy, w, metrics = c("qslope", "qaspect", "qeastness", "qnorthness"))
+  TA <- c(TA, Curv, SlpAsp)
+}
+
+TA <- c(Rugosity, RelativePosition, Curv, SlpAsp)
+
+#-----Creating multiple terrain attributes at once - in one loop -----------------------------------------------------------------
+
+ #Initialize Raster for Terrain Attributes
+
+for(w in c(3,5,7,11,17,27,43,69)) {
   
-  SlpAspCurv <- Qfit(bathy, q, metrics = c("qslope", "qaspect", "qeastness", "qnorthness", "profc", "planc", 
-                                           "twistc", "meanc", "maxc", "minc", "features"))
+  SlpAspCurv <- Qfit(bathy, w, metrics = c("qslope", "qaspect", "qeastness", "qnorthness", "profc", "planc", "twistc", "meanc", "maxc", "minc", "features"))
+  
   Rugosity <- AdjSD(bathy, w)
   
-  RelativePosition <- TPI(bathy, w)
+  RelativePosition <- TPI(bathy, w) }
   
-  TA <- c(TA, SlpAspCurv, Rugosity, RelativePosition) #Append layers to stack
+  TA <- c(TA, Rugosity, RelativePosition) #Append layers to stack #SlpAspCurv, 
   
-}#Calculated 72 terrain attributes
+#Calculated terrain attributes
 
 
