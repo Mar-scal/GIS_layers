@@ -1,3 +1,8 @@
 # ArcMap temporary files
 
 *.sr.lock
+*.tif.ovr
+
+# R files
+
+*.Rhistory
