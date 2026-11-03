@@ -1,6 +1,5 @@
 # GIS_layers
-The available GIS layers used by SABHU.  As of the development of this respository many of these are experimental coordinates that need 
-to undergo a great deal of testing, there are some obvious inconsistencies with some of these data currently
+The available GIS layers used by SABHU.  These are UNOFFICIAL boundaries that are sufficient for Science Purposes, please contact the data administration or manager from the appropriate regulator for definitive boundaries. Many of these are experimental coordinates that require further validation and testing, and there are some obvious inconsistencies with some of these data currently.
 
 This is the core collection of functions used for the assessment of Offshore Scallop.
 

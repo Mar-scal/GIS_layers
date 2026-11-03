@@ -6,3 +6,8 @@
 # R files
 
 *.Rhistory
+
+# ignore folder
+/archive/
+archive/
+Archive/
